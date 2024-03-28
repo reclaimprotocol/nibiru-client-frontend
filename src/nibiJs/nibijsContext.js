@@ -2,17 +2,18 @@ import { createContext, useState } from "react";
 import {
     NibiruTxClient,
     Testnet,
+    Mainnet
   } from "@nibiruchain/nibijs";
 
 const NibijsContext = createContext(null);
+// Uncomment for mainnet
+// const CHAIN_ID = "cataclysm-1";
 
 const CHAIN_ID = "nibiru-testnet-1";
 
 const NibijsContextProvider = ({ children }) => {
     const [nibijs, setNibijs] = useState(null);
     const [nibiAddress, setNibiAddress] = useState("");
-
-    const chain = Testnet();
 
     async function setupKeplr(setNibijs, setNibiAddress) {
         const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -39,6 +40,9 @@ const NibijsContextProvider = ({ children }) => {
         const accounts = await keplrOfflineSigner.getAccounts();
 
         const nibiAddress = accounts[0].address;
+
+        // Uncomment for mainnet
+        // const chain = Mainnet();
 
         const chain = Testnet();
         const txClient = await NibiruTxClient.connectWithSigner(chain.endptTm, keplrOfflineSigner)
@@ -73,6 +77,11 @@ const NibijsContextProvider = ({ children }) => {
 
     async function addNibiruToKeplr () {
         const chainConfig = {
+            // Uncomment for mainnet
+            // rpc: "https://rpc.cataclysm-1.nibiru.fi",
+            // rest: "https://lcd.cataclysm-1.nibiru.fi",
+            // chainId: "cataclysm-1",
+            // chainName: "cataclysm-1",
             rpc: "https://rpc.testnet-1.nibiru.fi",
             rest: "https://lcd.testnet-1.nibiru.fi",
             chainId: "nibiru-testnet-1",
