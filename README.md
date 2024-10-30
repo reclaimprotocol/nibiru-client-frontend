@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Reclaim Protocol Starter Pack - Nibiru
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository provides a **React-based frontend example** for developers to interact with the Reclaim Protocol smart contract on the **Nibiru** network. This template demonstrates how to submit and verify proofs on-chain, making it easier for developers to integrate Reclaim Protocol into their applications.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Proof Submission**: Generate proof requests and submit them on-chain.
+- **Proof Verification**: Verify submitted proofs directly through the smart contract.
+- **Wallet Connection**: Built-in wallet connection with `Nibiru` support.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+Follow these steps to set up the project locally.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Clone the Repository
 
-### `npm run build`
+Run this command:
+```bash
+git clone https://gitlab.reclaimprotocol.org/starterpacks/nibiru-client-frontend.git
+cd nibiru-client-frontend
+```
+### 2. Install Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Run this command:
+```bash
+npm install
+```
+### 3. Code Configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In `src/App.tsx`, fill in the necessary Reclaim credentials and replace `TODO` comments with your application-specific data:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```javascript
+const APP_ID = "YOUR_APP_ID"; // Replace with your application ID
+const providerId = "YOUR_PROVIDER_ID"; // Replace with your provider ID
+const APP_SECRET = "YOUR_APP_SECRET"; // Replace with your app secret
+```
 
-### `npm run eject`
+In `src/nibiJs/nibijsContext.js` and `src/nibiJs/nibijsFunctions.js` you can find the necessary functions and context to connect the wallet and interact with the smart contract. There you would see the line:
+```javascript
+// Uncomment for mainnet
+```
+if you procced and uncomented all of the lines in the two files you would seitch to the mainnet.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 4. Update Contract Address
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you deployed a custom contract, update the contract address in `src/nibiJs/nibijsFunctions.js`:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```javascript
+let contractAddress = "YOUR_CONTRACT_ADDRESS"; // Replace with your contract address
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After configuration, you can run the project locally to test the proof verification process.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Start the Application
 
-### Code Splitting
+Run this command:
+```bash
+npm run start
+```
+1. **Connect Wallet**: Ensure your wallet is connected and set to the correct network.
+2. **Request Proof**: Click the "Create Claim QR Code" button to generate a QR code for proof submission.
+3. **Verify Proof**: Once the proof is received, a "Verify Proof" button appears. Click it to submit a transaction for on-chain verification.
+4. **View Transaction**: After verification, a link to view the transaction on the explorer will be available.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Code Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+`src/App.tsx`
 
-### Making a Progressive Web App
+- Proof Request: Configures and initiates proof requests through Reclaim’s SDK.
+- QR Code Generation: Displays a QR code for users to scan and submit proofs.
+- Proof Submission: Handles on-chain submission upon proof verification.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+`src/verify-proof.jsx`
 
-### Advanced Configuration
+- Proof Transformation: Transforms the received proof to be compatible with the smart contract.
+- Verification Process: Sends a transaction to verify the proof on-chain and provides a link to the transaction on the explorer.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Wallet Connection Issues**: Ensure that your wallet is set to the correct network that you contract is deployed on and refresh the page if the connection fails.
+- **Proof Submission Fails**: Double-check your Reclaim credentials, contract address, and that the correct network is selected.
