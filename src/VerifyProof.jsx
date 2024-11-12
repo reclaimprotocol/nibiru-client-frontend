@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { Reclaim } from "@reclaimprotocol/js-sdk";
+import { transformForOnchain } from "@reclaimprotocol/js-sdk";
 import { NibijsFunctions } from "./nibiJs/nibijsFunctions";
- 
+
 export default function VerifyProof(props) {
   const [proof, setProof] = useState({});
   const [verified, setVerified] = useState(false);
   const { verify_proof } = NibijsFunctions();
- 
+
   useEffect(() => {
-    const newProof = Reclaim.transformForOnchain(props.proof);
+    const newProof = transformForOnchain(props.proof);
     setProof(newProof);
   }, []);
 
@@ -45,4 +45,3 @@ export default function VerifyProof(props) {
     </div>
   );
 }
- 
